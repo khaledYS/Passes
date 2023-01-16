@@ -13,11 +13,28 @@ const App:FC<AppProps> = ({children}) => {
   
   const auth = useContext(AuthContext)
 
+  // removing the loading svg after the page finished loading
+  useEffect(() => {
+    const onPageLoad = () => {
+      const loader = document.querySelector(".loader");
+      loader?.remove()
+    };
+
+    // Check if the page has already loaded
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad);
+      // Remove the event listener when component unmounts
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(FRauth, async (user)=>{
       if(user){
         auth?.setUser(user);
-        console.log(user)
+        // console.log(user)
       }else {
         auth?.setUser(0);
         return null;
@@ -35,14 +52,14 @@ const App:FC<AppProps> = ({children}) => {
                 uid: user?.uid
             })
         }
-        console.log("hahha")
+        // console.log("hahha")
 
     } catch (err){
         // @ts-ignore
         console.log(err.code)
         alert(err)
     }finally{
-        console.log("turned of here")
+        // console.log("turned of here")
     }
 
     })

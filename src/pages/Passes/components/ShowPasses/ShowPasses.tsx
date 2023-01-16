@@ -18,13 +18,14 @@ import { useSlotProps } from "@mui/base";
 import Filters from "./components/Filters/Filters";
 import { BsFillFilterSquareFill } from "react-icons/bs";
 import Modal from "../../../../components/Modal/Modal";
+import {v4 as uuidv4} from "uuid";
 
 interface ShowPassesProps { }
 
 interface passFromDbSnap {
   id: string;
   username: string;
-  password?: string;
+  password: string;
   platform: string;
   createdAt: Date;
   type: string;
@@ -35,6 +36,7 @@ const ShowPasses: FC<ShowPassesProps> = () => {
   const [passesFromDb, setPassesFromDb] = useState<Array<passFromDbSnap> | null>(null);
   const [isFilterPasasesOpen, setIsFilterPassesOpen] = useState<boolean>(false);
   const [filterByPlatform, setFilterByPlatform] = useState<{label:string, Icon: ReactNode, id: number}>(platforms[0]);
+  const [filterByCustomPlatform, setFilterByCustomPlatform] = useState<string>("");
   const [filterByUserType, setFilterByUserType] = useState<{label:string, Icon: ReactNode, id: number, value: string}>(userTypes[0]);
   const auth = useContext(AuthContext);
 
@@ -50,6 +52,7 @@ const ShowPasses: FC<ShowPassesProps> = () => {
       const passesSnaps = await getDocsFromServer(passesRef);
       setPassesFromDb(
         passesSnaps.docs.map((e) => {
+          // console.log(e.data())
           return {
             id: e.id,
             username: e.data().username,
@@ -64,8 +67,8 @@ const ShowPasses: FC<ShowPassesProps> = () => {
   }, []);
 
   useEffect(() => {
-    console.log(passesFromDb);
-  }, [passesFromDb]);
+    // console.log(filterByPlatform, filterByUserType);
+  }, [filterByPlatform, filterByUserType]);
 
   return (
     <div className="showpasses w-full h-full flex flex-col overflow-hidden ">
@@ -74,7 +77,7 @@ const ShowPasses: FC<ShowPassesProps> = () => {
       <div className="upper-showpasses bg-[#36454F] flex justify-between items-center px-2 py-3 border-t border-[#647f91]">
         {/* filter modal (when opened) */}
         <Modal isShowing={isFilterPasasesOpen} >
-          <Filters isOpen={isFilterPasasesOpen} byPlatform={filterByPlatform} setByPlatform={setFilterByPlatform} byUserType={filterByUserType} setByUserType={setFilterByUserType} setIsOpen={setIsFilterPassesOpen} />
+          <Filters isOpen={isFilterPasasesOpen} byPlatform={filterByPlatform} setByPlatform={setFilterByPlatform} byUserType={filterByUserType} setByUserType={setFilterByUserType} setIsOpen={setIsFilterPassesOpen} setByCustomPlatform={setFilterByCustomPlatform} byCustomPlatform={filterByCustomPlatform} />
         </Modal>
 
         
@@ -100,19 +103,39 @@ const ShowPasses: FC<ShowPassesProps> = () => {
         {passesFromDb &&
           passesFromDb.map((e) => {
             return (
-              <Pass
-                key={e.id}
-                passData={{
-                  id: e.id,
-                  username: e.username,
-                  password: e.password,
-                  platform: e.platform,
-                  type: e.type,
-                  createdAt: e.createdAt,
-                }}
-              />
+                <Pass
+                  key={e.id}
+                  passData={{
+                    id: e.id,
+                    username: e.username,
+                    password: e.password,
+                    platform: e.platform,
+                    type: e.type,
+                    createdAt: e.createdAt
+                  }}
+                />
             );
           })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+          {passesFromDb && passesFromDb.map((e) => { return ( <Pass key={e.id} passData={{ id: e.id, username: e.username, password: e.password, platform: e.platform, type: e.type, createdAt: e.createdAt }} /> ); })}
+
       </div>
     </div>
   );

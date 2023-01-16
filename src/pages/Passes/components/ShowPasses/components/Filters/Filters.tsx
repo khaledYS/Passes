@@ -8,10 +8,11 @@ import {
   useAnimationControls,
   Variants,
 } from "framer-motion";
-import {
+import React, {
   Dispatch,
   DispatchWithoutAction,
   FC,
+  ReactElement,
   ReactNode,
   SetStateAction,
   useEffect,
@@ -32,22 +33,29 @@ import { SlControlStart } from "react-icons/sl";
 interface FiltersProps {
   isOpen: boolean;
   setIsOpen: Dispatch<boolean>;
-  byPlatform: { label: string; Icon: ReactNode; id: number };
+  byPlatform: { label: string | any; Icon: ReactNode; id: number };
   setByPlatform: Dispatch<
-    SetStateAction<{ label: string; Icon: ReactNode; id: number }>
+    SetStateAction<{
+      label: string | null | React.FormEvent<HTMLDivElement>;
+      value: string | React.FormEvent<HTMLDivElement>;
+      Icon: ReactNode | null;
+      id: number | null;
+    }>
   >;
-  byUserType: { label: string; Icon: ReactNode; value: string; id: number };
+  byUserType: { label?: string; Icon: ReactNode; value: string; id: number };
   setByUserType: Dispatch<
     SetStateAction<{
-      label: string;
+      label?: string | any;
       Icon: ReactNode;
-      value: string;
+      value?: string;
       id: number;
     }>
   >;
+  setByCustomPlatform: Dispatch<SetStateAction<string>>;
+  byCustomPlatform: string
 }
 interface InputFilterValueObject {
-  label: string;
+  label: string | any;
   Icon: ReactNode;
   value: string;
   id: number;
@@ -60,6 +68,8 @@ const Filters: FC<FiltersProps> = ({
   setByPlatform,
   byUserType,
   setByUserType,
+  byCustomPlatform,
+  setByCustomPlatform
 }) => {
   useEffect(() => {
     console.log(isOpen);
@@ -82,10 +92,10 @@ const Filters: FC<FiltersProps> = ({
     "& .MuiOutlinedInput-root:focus": {
       "& .MuiFormLabel-root": {
         color: "white",
-      }
-    },      
+      },
+    },
     "& .MuiFormLabel-root": {
-      color: "white"
+      color: "white",
     },
     "& .MuiInputBase-input": {
       '&:not([placeholder="custom platform (required)" ]) ': {
@@ -110,12 +120,12 @@ const Filters: FC<FiltersProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    console.log(byPlatform, byUserType);
-  }, [byUserType, byPlatform]);
+    console.log(byPlatform, byUserType, byCustomPlatform);
+  }, [byUserType, byPlatform, byCustomPlatform]);
 
   return (
     <motion.div
-      key={54 }
+      key={54}
       variants={modalContainerVariants}
       className="absolute left-0 top-0 grid place-items-center w-full h-full backdrop-filter backdrop-blur-md"
       exit="closed"
@@ -162,9 +172,9 @@ const Filters: FC<FiltersProps> = ({
               sx={{
                 ...styleFilterInput,
                 marginBottom: ".25rem",
-                minWidth: "300px"
+                minWidth: "300px",
               }}
-              onChange={(_, value) => {
+              onChange={(_, value: InputFilterValueObject) => {
                 setByPlatform(value);
               }}
               className="text-white"
@@ -187,37 +197,39 @@ const Filters: FC<FiltersProps> = ({
               }}
             />
             {/* show only if the platform is assigned to others*/}
-            {byPlatform.label == "Others" &&          
-                <AnimatePresence >
-                {byPlatform.label == "Others" ?
+            {byPlatform.label == "Others" && (
+              <AnimatePresence>
+                {byPlatform.label == "Others" ? (
                   <motion.div
                     key={"chuppy"}
                     className="w-full"
-                    exit={
-                      {
-                      scale: .6,
+                    exit={{
+                      scale: 0.6,
                       opacity: 0.1,
                       transition: {
-                        duration: .4
-                      }
-                    }
-                    }
+                        duration: 0.4,
+                      },
+                    }}
                     animate={{
                       scale: 1,
                       opacity: 1,
                       transition: {
-                        duration: .4
-                      }
+                        duration: 0.4,
+                      },
                     }}
                     initial={{
-                      scale: .6,
-                      opacity: 0.1
+                      scale: 0.6,
+                      opacity: 0.1,
                     }}
                   >
                     <TextField
                       className="!mt-1"
                       id="outlined-basic"
                       aria-required={true}
+                      onChange={(input) => {
+                        let value = input.target.value;
+                        setByCustomPlatform(value)
+                      }}
                       label="custom platform *"
                       autoComplete="off"
                       sx={{
@@ -228,9 +240,9 @@ const Filters: FC<FiltersProps> = ({
                       variant="outlined"
                     />
                   </motion.div>
-                  : null
-                }
-              </AnimatePresence>}
+                ) : null}
+              </AnimatePresence>
+            )}
           </motion.div>
           <motion.div variants={inputVariants}>
             <Autocomplete
