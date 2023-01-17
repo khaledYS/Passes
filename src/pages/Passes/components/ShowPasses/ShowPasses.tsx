@@ -32,14 +32,21 @@ interface passFromDbSnap {
   type: string;
 }
 
+export interface filterByType{
+  label: string;
+  value?: string | React.FormEvent<HTMLDivElement>;
+  Icon: ReactNode | null;
+  id: number;
+}
+
 const ShowPasses: FC<ShowPassesProps> = () => {
   
   const [passesFromDb, setPassesFromDb] = useState<Array<passFromDbSnap> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFilterPassesOpen, setIsFilterPassesOpen] = useState<boolean>(false);
-  const [filterByPlatform, setFilterByPlatform] = useState<{label:string, Icon: ReactNode, id: number}>(platforms[0]);
+  const [filterByPlatform, setFilterByPlatform] = useState<filterByType>(platforms[0]);
+  const [filterByUserType, setFilterByUserType] = useState<filterByType>(userTypes[0]);
   const [filterByCustomPlatform, setFilterByCustomPlatform] = useState<string>("");
-  const [filterByUserType, setFilterByUserType] = useState<{label:string, Icon: ReactNode, id: number, value: string}>(userTypes[0]);
   const auth = useContext(AuthContext);
 
   useEffect(() => {

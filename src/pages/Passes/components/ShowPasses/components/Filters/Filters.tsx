@@ -29,37 +29,19 @@ import {
 } from "../../filters-Data";
 import { CgClose } from "react-icons/cg";
 import { SlControlStart } from "react-icons/sl";
+import {filterByType} from "./../../ShowPasses"
 
 interface FiltersProps {
   isOpen: boolean;
   setIsOpen: Dispatch<boolean>;
-  byPlatform: { label: string | any; Icon: ReactNode; id: number };
-  setByPlatform: Dispatch<
-    SetStateAction<{
-      label: string | null | React.FormEvent<HTMLDivElement>;
-      value: string | React.FormEvent<HTMLDivElement>;
-      Icon: ReactNode | null;
-      id: number | null;
-    }>
-  >;
-  byUserType: { label?: string; Icon: ReactNode; value: string; id: number };
-  setByUserType: Dispatch<
-    SetStateAction<{
-      label?: string | any;
-      Icon: ReactNode;
-      value?: string;
-      id: number;
-    }>
-  >;
+  byPlatform: filterByType;
+  setByPlatform: Dispatch<SetStateAction<filterByType>>;
+  byUserType: filterByType;
+  setByUserType: Dispatch<SetStateAction<filterByType>>;
   setByCustomPlatform: Dispatch<SetStateAction<string>>;
   byCustomPlatform: string
 }
-interface InputFilterValueObject {
-  label: string | any;
-  Icon: ReactNode;
-  value: string;
-  id: number;
-}
+
 
 const Filters: FC<FiltersProps> = ({
   isOpen,
@@ -164,8 +146,8 @@ const Filters: FC<FiltersProps> = ({
             variants={inputVariants}
           >
             <Autocomplete
-              value={byPlatform}
               id="disabled-options-demo"
+              value={byPlatform}
               options={platforms}
               disableClearable={true}
               selectOnFocus={false}
@@ -174,7 +156,7 @@ const Filters: FC<FiltersProps> = ({
                 marginBottom: ".25rem",
                 minWidth: "300px",
               }}
-              onChange={(_, value: InputFilterValueObject) => {
+              onChange={(_, value: filterByType) => {
                 setByPlatform(value);
               }}
               className="text-white"
@@ -250,7 +232,7 @@ const Filters: FC<FiltersProps> = ({
               id="disabled-options-demo"
               options={userTypes}
               disableClearable={true}
-              onChange={(_, value: InputFilterValueObject) => {
+              onChange={(_, value: filterByType) => {
                 setByUserType(value);
               }}
               selectOnFocus={false}
