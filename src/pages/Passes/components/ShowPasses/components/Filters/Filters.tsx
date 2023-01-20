@@ -25,6 +25,7 @@ import {
   inputVariants,
   modalContainerVariants,
   platforms,
+  styleFilterInput,
   userTypes,
 } from "../../filters-Data";
 import { CgClose } from "react-icons/cg";
@@ -59,33 +60,6 @@ const Filters: FC<FiltersProps> = ({
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(false);
   const animationControls = useAnimationControls();
-
-  const styleFilterInput = {
-    color: "white",
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: "white .15rem solid",
-    },
-    "& .MuiOutlinedInput-root:hover": {
-      cursor: "pointer",
-      "& > fieldset": {
-        borderColor: "orange",
-      },
-    },
-    "& .MuiOutlinedInput-root:focus": {
-      "& .MuiFormLabel-root": {
-        color: "white",
-      },
-    },
-    "& .MuiFormLabel-root": {
-      color: "white",
-    },
-    "& .MuiInputBase-input": {
-      '&:not([placeholder="custom platform (required)" ]) ': {
-        cursor: "pointer",
-      },
-      color: "white",
-    },
-  };
 
   useEffect(() => {
     (async () => {
@@ -163,10 +137,10 @@ const Filters: FC<FiltersProps> = ({
               renderInput={(params) => {
                 return (
                   <TextField
-                    placeholder="By platform"
+                    placeholder="Ex. Instagram"
                     className="w-fit"
                     {...params}
-                    label="by platform"
+                    label="by Pass platform"
                   ></TextField>
                 );
               }}
@@ -244,9 +218,9 @@ const Filters: FC<FiltersProps> = ({
               renderInput={(params) => {
                 return (
                   <TextField
-                    placeholder="By user type"
+                    placeholder="EX. Email"
                     className="w-fit"
-                    label="by user type"
+                    label="by Pass type"
                     {...params}
                   ></TextField>
                 );

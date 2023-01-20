@@ -174,3 +174,37 @@ export const  modalContainerVariants: Variants = {
       },
     },
   };
+
+  export const styleFilterInput = {
+    cursor: "pointer",
+    ".MuiInputLabel-root":{
+        color: "#d5cfcf !important"
+    },
+    "& .MuiAutocomplete-root:hover":{
+        ".MuiOutlinedInput-notchedOutline ":{
+            border:"2px orange solid !important"
+        }
+    },
+    "& .MuiTextField-root:hover":{
+      ".MuiOutlinedInput-notchedOutline ":{
+        border:"2px orange solid !important"
+      }
+    },
+    ".MuiOutlinedInput-notchedOutline":{
+        border:"2px #fff solid !important"
+    },
+    ".Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border:"2px orange solid !important"
+    },
+    "& .MuiIconButton-root":{
+        color:"white !important"
+    },
+    "& input":{
+        color:"#fff !important"
+    }, 
+    "& .MuiInputBase-input": {
+        '&:not([placeholder="custom platform (required)" ]) ': {
+          cursor: "pointer",
+        }
+    }
+  };

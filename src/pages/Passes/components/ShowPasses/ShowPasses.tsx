@@ -34,7 +34,7 @@ interface passFromDbSnap {
 
 export interface filterByType{
   label: string;
-  value?: string | React.FormEvent<HTMLDivElement>;
+  value?: string;
   Icon: ReactNode | null;
   id: number;
 }
