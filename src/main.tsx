@@ -31,7 +31,9 @@ ReactDOM.render(
           } >
             <Route index element={<ShowPasses />} />
             <Route path="new" element={<NewPass />} />
-            <Route path=":passId" element={<PassInfo />} />
+            <Route path=":passId" element={<ShowPasses />}>
+              <Route index element={<PassInfo />} />
+            </Route>
           </Route>
           <Route path={"/MyAccount"} element={
             <ProRoute>

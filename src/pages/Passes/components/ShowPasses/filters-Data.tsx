@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react";
+import React, { Attributes, FC, HTMLAttributes, ReactNode } from "react";
 import { IoLogoInstagram, IoLogoWhatsapp } from "react-icons/io5";
 import { BsDashSquareFill, BsFacebook, BsInstagram, BsTelephoneXFill, BsWhatsapp } from "react-icons/bs"
 import {SiGmail, SiTiktok, SiTwitter} from "react-icons/si"
 import {SlSocialTwitter} from 'react-icons/sl'
-import {FaGooglePlusSquare, FaTwitterSquare, FaWhatsappSquare} from "react-icons/fa"
+import {FaAppStoreIos, FaGooglePlusSquare, FaSnapchatSquare, FaTwitterSquare, FaWhatsappSquare} from "react-icons/fa"
 import {RiInstagramFill} from 'react-icons/ri'
 import {MdEmail} from 'react-icons/md'
 import {BiUserCircle} from "react-icons/bi"
@@ -39,46 +39,61 @@ export const platforms:Array<{label: string, Icon: ReactNode, id:number}> = [
     
     {
         label: "All",
-        Icon: <PlatefomrIcon IconPassed={<DiGhostSmall /> } />,
+        Icon: (attr:Attributes)=>{return <DiGhostSmall {...attr} />},
         id: 0
     },
     {
         label: "Instagram",
-        Icon: <PlatefomrIcon IconPassed={<RiInstagramFill /> } />,
+        Icon: (attr:Attributes)=>{return <RiInstagramFill {...attr} />},
         id: 1
     },
     {
         label: "Whatsapp",
-        Icon: <PlatefomrIcon IconPassed={<FaWhatsappSquare /> } />,
+        Icon: (attr:Attributes)=>{return <FaWhatsappSquare {...attr} />},
         id: 2
     },
     {
         label: "Twitter",
-        Icon: <PlatefomrIcon IconPassed={<FaTwitterSquare /> } />,
+        Icon: (attr:Attributes)=>{return <FaTwitterSquare {...attr} />},
         id: 3
     },
     {
         label: "Gmail",
-        Icon: <PlatefomrIcon IconPassed={<FaGooglePlusSquare /> } />,
+        Icon: (attr:Attributes)=>{return <FaGooglePlusSquare {...attr} />},
         id: 4
     },
     {
         label: "FaceBook",
-        Icon: <PlatefomrIcon IconPassed={<BsFacebook /> } />,
+        Icon: (attr:Attributes)=>{return <BsFacebook {...attr} />},
         id: 5
     },
     {
         label: "TikTok",
-        Icon: <PlatefomrIcon IconPassed={<SiTiktok /> } />,
+        Icon: (attr:Attributes)=>{return <SiTiktok {...attr} />},
         id: 6
     },
     {
+      label: "Snapchat",
+      Icon: (attr:Attributes)=>{return <FaSnapchatSquare {...attr} />},
+      id: 8
+    },
+    {
         label: "Others",
-        Icon: <PlatefomrIcon IconPassed={<BsDashSquareFill /> } />,
-        id: 7
+        Icon: (attr:Attributes)=>{return <FaAppStoreIos {...attr} />},
+        id: 999
     }
 ]
 
+
+export const choosePlatform = (platform:string)=>{
+  let res = null;
+  platforms.forEach(e=>{
+    if(e.label.toLowerCase() == platform.toLowerCase()){
+      res = e;
+    }
+  })
+  return res;
+}
 
 export const userTypes:Array<{label: string, Icon: ReactNode, id:number, value: string}> = [
     {

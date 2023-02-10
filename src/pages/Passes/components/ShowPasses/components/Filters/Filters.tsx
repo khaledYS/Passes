@@ -145,9 +145,10 @@ const Filters: FC<FiltersProps> = ({
                 );
               }}
               renderOption={(props, option: any, state) => {
+                console.log(option)
                 return (
                   <li {...props}>
-                    {option.Icon} &nbsp;&nbsp;{option.label}
+                    <option.Icon className="text-2xl" /> &nbsp;&nbsp;{option.label}
                   </li>
                 );
               }}
