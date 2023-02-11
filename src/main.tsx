@@ -16,9 +16,11 @@ import MyAccount from './pages/MyAccount/MyAccount'
 import ShowPasses from './pages/Passes/components/ShowPasses/ShowPasses'
 import NewPass from './pages/Passes/components/NewPass/NewPass'
 import PassInfo from './pages/Passes/components/PassInfo/PassInfo'
+import LoadingProvider from './contexts/Loading/Loading'
 
 ReactDOM.render(
   <BrowserRouter>
+  <LoadingProvider>
     <AuthProvider>
       <App>
         <Routes>
@@ -43,6 +45,7 @@ ReactDOM.render(
         </Routes>
       </App>
     </AuthProvider>
+  </LoadingProvider>
   </BrowserRouter>,
   document.getElementById('root')
 )

@@ -5,6 +5,7 @@ import { db, FRauth } from './firebase';
 import { AuthContext } from './contexts/Auth/Auth';
 import { doc, getDocFromServer, serverTimestamp, setDoc } from '@firebase/firestore';
 import Nav from './components/Nav/Nav';
+import { LoadingContext } from './contexts/Loading/Loading';
 
 interface AppProps {
 }
@@ -12,6 +13,7 @@ interface AppProps {
 const App:FC<AppProps> = ({children}) => {
   
   const auth = useContext(AuthContext)
+  const loading = useContext(LoadingContext)
 
   // removing the loading svg after the page finished loading
   useEffect(() => {
@@ -32,14 +34,15 @@ const App:FC<AppProps> = ({children}) => {
 
   useEffect(() => {
     onAuthStateChanged(FRauth, async (user)=>{
+      await loading?.setIsLoading(true);
       if(user){
         auth?.setUser(user);
         // console.log(user)
       }else {
         auth?.setUser(0);
+        await loading?.setIsLoading(false);
         return null;
       }
-
       try{
         const docRef = doc(db, "users", `${user?.email}`);
         const docSnap = await getDocFromServer(docRef);
@@ -57,9 +60,10 @@ const App:FC<AppProps> = ({children}) => {
     } catch (err){
         // @ts-ignore
         console.log(err.code)
+        loading?.setIsLoading(false)
         alert(err)
     }finally{
-        // console.log("turned of here")
+        loading?.setIsLoading(false)
     }
 
     })
