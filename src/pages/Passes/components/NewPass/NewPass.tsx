@@ -50,7 +50,7 @@ const NewPass: FC<NewPassProps> = () => {
     // @ts-ignore
     const userEmail = auth?.user?.email;
     const passesRef = collection(db, "users", `${userEmail}`, "passes")
-    const docRef = doc(db, "users", `${userEmail}`, "passes", passUser)
+    const docRef = doc(db, "users", `${userEmail}`, "passes", `${passUser} - ${passType} - ${passPlatform}`)
     try {
       // check if the pass already has another pass with the same username
       let docSnap = await getDoc(docRef);

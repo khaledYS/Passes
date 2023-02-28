@@ -40,7 +40,7 @@ const PassInfo: FC<PassInfoProps> = () => {
       try {
         const passesSnaps = await getDocFromServer(passRef);
         setPassFromDb({
-          id: passesSnaps?.id,
+          id: passesSnaps?.data()?.username,
           username: passesSnaps?.data()?.username,
           password: passesSnaps?.data()?.password,
           platform: passesSnaps?.data()?.platform,

@@ -39,7 +39,8 @@ const Nav: FC<NavProps> = ({ sticky }) => {
           </IconButton>
         </Link>
       </div>
-      {auth?.user ? (
+      {
+      auth?.user ? (
         <div className="flex items-center">
           {showGoToPassesLink && (
             <Button variant="contained" color="primary">

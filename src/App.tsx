@@ -43,6 +43,7 @@ const App:FC<AppProps> = ({children}) => {
         await loading?.setIsLoading(false);
         return null;
       }
+      await loading?.setIsLoading(true);
       try{
         const docRef = doc(db, "users", `${user?.email}`);
         const docSnap = await getDocFromServer(docRef);
