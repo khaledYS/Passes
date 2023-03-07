@@ -95,3 +95,10 @@
   border-color : rgb(122,153,217);
   /* border-color: rgb(28,58,148); */
 }
+
+.fieldname-shadow{
+	box-shadow:  black 6px -5px 18px -11px;
+}
+.fieldname-shadow-reversed{
+	box-shadow:  black -6px 0 18px -9px;
+}

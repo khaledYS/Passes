@@ -17,8 +17,6 @@ const PrivateRoute:FC<PrivateRouteProps> = ({children}) => {
         }
     }, [auth]);
 
-
-
     return (
         (auth?.user ? 
             <div className="PrivateRoute w-full h-full">

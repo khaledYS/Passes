@@ -15,7 +15,8 @@ import { passFromDbSnapTypes } from "../ShowPasses/ShowPasses";
 import Loader from "/loading-animation.svg";
 import {IoMdArrowRoundBack} from "react-icons/io"
 import { Link } from "react-router-dom";
-import { Icon, IconButton } from "@mui/material";
+import { Icon, IconButton, listItemSecondaryActionClasses } from "@mui/material";
+import Field from "./components/Field";
 
 
 interface PassInfoProps {}
@@ -72,16 +73,10 @@ const PassInfo: FC<PassInfoProps> = () => {
       )}
 
         <div className="text-white w-full h-full grid place-items-center ">
-            <div className="!border-[#008d7a] px-6 py-8 rounded-xl " style={{border: "solid .6rem"}}>
-                <div className="my-3 whitespace-nowrap flex text-4xl items-end">
-                    <div className="text-4xl">{passFromDb?.type}</div> <div className="mx-3.5">:</div> <div className="text-2xl">{ passFromDb?.username }</div>
-                </div>
-                <div className="my-3 whitespace-nowrap flex text-4xl items-end">
-                    <div className="text-4xl">Pass</div> <div className="mx-3.5">:</div> <div className="text-2xl">{ passFromDb?.password }</div>
-                </div>
-                <div className="my-3 whitespace-nowrap flex text-4xl items-end">
-                    <div className="text-4xl">Platform</div> <div className="mx-3.5">:</div> <div className="text-2xl">{ passFromDb?.platform }</div>
-                </div>
+            <div className=" px-6 py-8 rounded-xl ">
+                <Field fieldName={passFromDb?.type} fieldValue={passFromDb?.username} />
+                <Field fieldName="Pass" fieldValue={passFromDb?.password} />
+                <Field fieldName="Platform" fieldValue={passFromDb?.platform} />
             </div>
         </div>
     </div>
