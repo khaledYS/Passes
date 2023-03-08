@@ -33,6 +33,7 @@ export interface passFromDbSnapTypes {
     seconds: number;
   };
   type: string;
+  customField: string | null
 }
 
 export interface filterByType {
@@ -73,6 +74,7 @@ const ShowPasses: FC<ShowPassesProps> = () => {
               platform: e.data().platform,
               type: e.data().type,
               createdAt: e.data().createdAt,
+              customField: e.data().customField
             };
           })
         );
@@ -132,7 +134,8 @@ const ShowPasses: FC<ShowPassesProps> = () => {
                       password: e.password,
                       platform: e.platform,
                       type: e.type,
-                      createdAt: e.createdAt
+                      createdAt: e.createdAt,
+                      customField: e.customField
                     }}
                   />
                 );

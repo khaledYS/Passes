@@ -13,7 +13,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Loader from "/loading-animation.svg";
 import {v4 as uuidv4} from "uuid"
 import { AuthContext } from "../../../../contexts/Auth/Auth";
-import { addDoc, collection, doc, getDoc, serverTimestamp, setDoc, Timestamp } from "@firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, Timestamp, where } from "@firebase/firestore";
 import { db } from "../../../../firebase";
 interface NewPassProps {}
 
@@ -28,20 +28,21 @@ const NewPass: FC<NewPassProps> = () => {
     userTypes_[userTypes_.length - 1].value
   );
   const [passUser, setPassUser] = useState<string>("");
-  const [passPlatform, setPassPlatform] = useState<string>("");
-  const [customPassPlatform, setCustomPassPlatform] = useState<string | null>(null);
+  const [passPlatform, setPassField] = useState<string>("");
+  const [customPassField, setCustomPassField] = useState<string | null>(null);
   const [passPassword, setPassPassword] = useState<string>("");
   const [passPassword_, setPassPassword_] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
   const [submitBtnIsLoading, setSubmitBtnIsLoading] = useState<boolean>(false);
+  const [disableCustomField, setDisableCustomField] = useState<boolean>(true);
   const auth = useContext(AuthContext)
   const navigate = useNavigate();
 
 
 
   async function submitPass(){
-    if(!passUser || !passPlatform || (passPlatform.toLowerCase() == "others" && !customPassPlatform) || !passwordIsValid || submitBtnIsLoading ){
+    if(!passUser || !passPlatform || (passPlatform.toLowerCase() == "others" && !customPassField) || !passwordIsValid || submitBtnIsLoading ){
       console.log("false")
       // note: must add code to show the user that he must fill all the fields 
       return;
@@ -50,21 +51,26 @@ const NewPass: FC<NewPassProps> = () => {
     // @ts-ignore
     const userEmail = auth?.user?.email;
     const passesRef = collection(db, "users", `${userEmail}`, "passes")
-    const docRef = doc(db, "users", `${userEmail}`, "passes", `${passUser} - ${passType} - ${passPlatform}`)
+    const docCollRef = collection(db, "users", `${userEmail}`, "passes")
     try {
       // check if the pass already has another pass with the same username
-      let docSnap = await getDoc(docRef);
-      if(docSnap.exists()){
-        // note: must add code to show the user that there is a doc with this username
+      // code must check if there is similar doc 
+      const q = query(docCollRef, where("platform", "==", passPlatform), where("type", "==", passType), where("username", "==", passUser), where("customField", "==", customPassField))
+      const checkIfAvailable = await getDocs(q);
+      console.log(checkIfAvailable.empty)
+      if(!checkIfAvailable.empty){
+        window.alert("this pass has already been exist, do you want to delete it or update it ?")
+        throw new Error("There is a pass with the same inputs, must differentiate.")
         return ;
       }
 
-      let addedDoc = await setDoc(docRef, {
+      let addedDoc = await addDoc(docCollRef, {
         createdAt: serverTimestamp(),
         password: passPassword,
-        platform: passPlatform.toLowerCase() == "others" ? customPassPlatform || passPlatform : passPlatform,
+        platform: passPlatform,
         type: passType,
-        username: passUser
+        username: passUser,
+        customField: customPassField
       })
 
       console.log(addedDoc, "finshed")  
@@ -72,10 +78,20 @@ const NewPass: FC<NewPassProps> = () => {
       navigate("/passes")
     } catch (error) {
       setSubmitBtnIsLoading(false)
-    }finally{
     }
     
   }
+
+
+  // check if the type of the platform is url or others so it enables the custom field
+  useEffect(() => {
+    if (passPlatform.toLowerCase() == "others" || passPlatform.toLowerCase() == "url"){
+      setDisableCustomField(false)
+    }else { 
+      setDisableCustomField(true)
+      setCustomPassField(null)
+    }
+  }, [passPlatform]);
 
   // check if the two passwords (passPassword & passPassword_) are the same
   useEffect(() => {
@@ -91,14 +107,13 @@ const NewPass: FC<NewPassProps> = () => {
   }, [passPassword, passPassword_]);
 
   useEffect(() => {
-    console.log(passPassword, passPassword_);
-  }, [passwordIsValid]);
+    console.log(passPlatform == "URL" && false);
+  }, [showPassword]);
 
 
-  // if the custom platform is disabled and has old data stored, the setCustomePassPlatform state must be null.
+  // if the custom platform is disabled and has old data stored, the setCustomePassField state must be null.
   useEffect(() => {
     if(passPlatform.toLowerCase() != "others"){
-      setCustomPassPlatform(null)
     }
   }, [passPlatform]);
   return (
@@ -244,7 +259,7 @@ const NewPass: FC<NewPassProps> = () => {
               minWidth: "300px",
             }}
             onChange={(_, value: filterByType) => {
-              setPassPlatform(value.label);
+              setPassField(value.label);
             }}
             className="text-white"
             renderInput={(params) => {
@@ -268,26 +283,26 @@ const NewPass: FC<NewPassProps> = () => {
           />
           <div
             className={`!my-2 h-full w-full ${
-              passPlatform.toLowerCase() != "others" && "filter brightness-50"
+              disableCustomField && "filter brightness-50"
             } `}
           >
             <TextField
-              placeholder="EX: dodo App"
-              disabled={passPlatform.toLowerCase() != "others" ? true : false}
-              label="custom platform"
+              placeholder={`EX: ${passPlatform == "Others" ? "YangDo": passPlatform == "URL" ? "coco.com" : ""}`}
+              disabled={disableCustomField}
+              label={`custom ${passPlatform == "Others" ? "App": passPlatform == "URL" ? "URL" : "Field"}`}
               inputProps={{
                 autofill: "off",
               }}
-              value={customPassPlatform || ""}
+              value={customPassField || ""}
               className="w-full h-full"
               type="text"
               onInput={(val) => {
                 // @ts-ignore
                 let value = val.target.value;
                 if(value == ""){
-                  setCustomPassPlatform(null)
+                  setCustomPassField(null)
                 }else{
-                  setCustomPassPlatform(value)
+                  setCustomPassField(value)
                 }
               }}
               required={true}

@@ -9,6 +9,7 @@ import {MdEmail} from 'react-icons/md'
 import {BiUserCircle} from "react-icons/bi"
 import {DiGhostSmall} from "react-icons/di"
 import { Variants } from "framer-motion";
+import {AiOutlineLink} from "react-icons/ai"
 
 interface platformOptProps{
     platformOptLabel: string,
@@ -76,6 +77,14 @@ export const platforms:Array<{label: string, Icon: ReactNode, id:number}> = [
       label: "Snapchat",
       Icon: (attr:Attributes)=>{return <FaSnapchatSquare {...attr} />},
       id: 8
+    },
+    // ----------------
+    // add here
+    // ----------------
+    {
+      label: "URL",
+      Icon: (attr:Attributes)=>{return <AiOutlineLink {...attr} />},
+      id: 998
     },
     {
         label: "Others",

@@ -34,7 +34,7 @@ const App:FC<AppProps> = ({children}) => {
 
   useEffect(() => {
     onAuthStateChanged(FRauth, async (user)=>{
-      await loading?.setIsLoading(true);
+      loading?.setIsLoading(true);
       if(user){
         auth?.setUser(user);
         // console.log(user)
@@ -45,6 +45,7 @@ const App:FC<AppProps> = ({children}) => {
       }
       await loading?.setIsLoading(true);
       try{
+        loading?.setIsLoading(true);
         const docRef = doc(db, "users", `${user?.email}`);
         const docSnap = await getDocFromServer(docRef);
         if(!docSnap.exists()){
@@ -64,7 +65,6 @@ const App:FC<AppProps> = ({children}) => {
         loading?.setIsLoading(false)
         alert(err)
     }finally{
-        loading?.setIsLoading(false)
     }
 
     })

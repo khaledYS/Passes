@@ -22,6 +22,7 @@ interface passDataProps {
         nanoseconds: number;
         seconds: number;
     }
+    customField: string | null
 }
 const Pass:FC<PassProps> = ({passData}) => {
     
@@ -46,13 +47,13 @@ const Pass:FC<PassProps> = ({passData}) => {
                 <div><Icon className="text-[#FCFCFC] text-5xl" /></div>
             </div>
             <div className="flex flex-col justify-start w-full">
-                <span className="text-2xl">{passData.platform}</span>
+                <span className="text-2xl">{passData.platform == "URL" || passData.platform == "Others" ? passData.customField : passData.platform}</span>
                 <span className="text-gray-300 ml-2">{username} - {passData.type} </span>
             </div>
             <div className="flex flex-col items-center justify-center ml-4">
                 {/* @ts-ignore */}
                 <PrintDate className="text-gray-400" timestamp={timestamp} />
-                <Link to={passData.username}>
+                <Link to={passData.id}>
                     <IconButton >
                         <BiWindowOpen className="text-[#4fd634] text-2xl" />
                     </IconButton>

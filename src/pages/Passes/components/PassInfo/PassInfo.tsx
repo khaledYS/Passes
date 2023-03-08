@@ -47,6 +47,7 @@ const PassInfo: FC<PassInfoProps> = () => {
           platform: passesSnaps?.data()?.platform,
           type: passesSnaps?.data()?.type,
           createdAt: passesSnaps?.data()?.createdAt,
+          customField: passesSnaps?.data()?.customField || null
         });
       } catch (error) {
         setLoading(false);
@@ -56,6 +57,9 @@ const PassInfo: FC<PassInfoProps> = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log(passFromDb)
+  }, [passFromDb]);
   return (
     <div className="w-full h-full bg-[#36454f]">
         <Link to="/passes" className="ml-4">
@@ -73,10 +77,13 @@ const PassInfo: FC<PassInfoProps> = () => {
       )}
 
         <div className="text-white w-full h-full grid place-items-center ">
-            <div className=" px-6 py-8 rounded-xl ">
+            <div className=" px-1 py-8 rounded-xl ">
                 <Field fieldName={passFromDb?.type} fieldValue={passFromDb?.username} />
                 <Field fieldName="Pass" fieldValue={passFromDb?.password} />
-                <Field fieldName="Platform" fieldValue={passFromDb?.platform} />
+                <Field disableCopy={true} fieldName="Platform" fieldValue={passFromDb?.platform} />
+                {passFromDb?.customField && 
+                  <Field fieldName={passFromDb.platform} fieldValue={passFromDb?.customField} />
+                }
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { FC, useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/Auth/Auth";
 import { FcGoogle } from "react-icons/fc";
-import { GoogleAuthProvider, signInWithRedirect } from "@firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 import { FRauth } from "../../firebase";
 import { LoadingContext } from "../../contexts/Loading/Loading";
 import Loader from "/loading-animation.svg";
@@ -19,12 +19,13 @@ const Login: FC<LoginProps> = () => {
     try {
         await loading?.setIsLoading(true);
       const provider = new GoogleAuthProvider();
-      let user = await signInWithRedirect(FRauth, provider);
+      let user = await signInWithPopup(FRauth, provider);
     } catch (err) {
       // @ts-ignore
       console.log(err.code);
+      await loading?.setIsLoading(false);
     }finally{
-        await loading?.setIsLoading(false);
+      console.log("must never fall the loading")
     }
   }
 
