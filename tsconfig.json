@@ -17,7 +17,17 @@
     "jsx": "react-jsx", 
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths":{
+      "components/*": ["src/components/*"],
+      "config/*" : ["src/config/*"],
+      "contexts/*" : ["src/contexts/*"],
+      "fonts/*" : ["src/fonts/*"],
+      "pages/*" : ["src/pages/*"],
+      "style/*" : ["src/style/*"],
+      "src/*" : ["src/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

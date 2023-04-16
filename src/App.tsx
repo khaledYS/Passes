@@ -6,6 +6,7 @@ import { AuthContext } from './contexts/Auth/Auth';
 import { doc, getDocFromServer, serverTimestamp, setDoc } from '@firebase/firestore';
 import Nav from './components/Nav/Nav';
 import { LoadingContext } from './contexts/Loading/Loading';
+import { PasserContext } from 'contexts/Passer/Passer';
 
 interface AppProps {
 }
@@ -14,9 +15,11 @@ const App:FC<AppProps> = ({children}) => {
   
   const auth = useContext(AuthContext)
   const loading = useContext(LoadingContext)
-
+  const passer = useContext(PasserContext)
+  
   // removing the loading svg after the page finished loading
   useEffect(() => {
+    loading?.setIsLoading(true);
     const onPageLoad = () => {
       const loader = document.querySelector(".loader");
       loader?.remove()
@@ -41,6 +44,7 @@ const App:FC<AppProps> = ({children}) => {
       }else {
         auth?.setUser(0);
         await loading?.setIsLoading(false);
+        passer?.setPasser(undefined)
         return null;
       }
       await loading?.setIsLoading(true);
@@ -56,6 +60,11 @@ const App:FC<AppProps> = ({children}) => {
                 emailVerified: user?.emailVerified,
                 uid: user?.uid
             })
+            passer?.setPasser(null)
+        }else{
+          let _passer = docSnap.data()?.passer;
+          if(_passer) passer?.setPasser(_passer)
+          else passer?.setPasser(null)
         }
         // console.log("hahha")
 
@@ -64,8 +73,8 @@ const App:FC<AppProps> = ({children}) => {
         console.log(err.code)
         loading?.setIsLoading(false)
         alert(err)
-    }finally{
     }
+
 
     })
   }, []);

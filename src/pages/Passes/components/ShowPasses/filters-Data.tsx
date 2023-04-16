@@ -202,7 +202,8 @@ export const  modalContainerVariants: Variants = {
   export const styleFilterInput = {
     cursor: "pointer",
     ".MuiInputLabel-root":{
-        color: "#d5cfcf !important"
+        color: "#d5cfcf !important",
+        zIndex: "0"
     },
     "& .MuiAutocomplete-root:hover":{
         ".MuiOutlinedInput-notchedOutline ":{

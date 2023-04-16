@@ -13,6 +13,62 @@
   width: 100%;
 }
 
+/* For example, copy into mirrorful.css */
+
+:root {
+	--color-blue: #668fe7;
+	--color-blue-50: #eaf0fc;
+	--color-blue-100: #d0dcf8;
+	--color-blue-200: #b5c9f3;
+	--color-blue-300: #9bb6ef;
+	--color-blue-400: #80a2eb;
+	--color-blue-500: #668fe7;
+	--color-blue-600: #4c7ce3;
+	--color-blue-700: #3168df;
+	--color-blue-800: #2159d0;
+	--color-blue-900: #1d4db6;
+	--color-chenin: #e7cd66;
+	--color-chenin-50: #fcf8ea;
+	--color-chenin-100: #f8f0d0;
+	--color-chenin-200: #f3e7b5;
+	--color-chenin-300: #efde9b;
+	--color-chenin-400: #ebd680;
+	--color-chenin-500: #e7cd66;
+	--color-chenin-600: #e3c44c;
+	--color-chenin-700: #dfbc31;
+	--color-chenin-800: #d0ad21;
+	--color-chenin-900: #b6971d;
+	--color-vista-blue: #66e7a1;
+	--color-vista-blue-50: #eafcf2;
+	--color-vista-blue-100: #d0f8e2;
+	--color-vista-blue-200: #b5f3d2;
+	--color-vista-blue-300: #9befc1;
+	--color-vista-blue-400: #80ebb1;
+	--color-vista-blue-500: #66e7a1;
+	--color-vista-blue-600: #4ce391;
+	--color-vista-blue-700: #31df80;
+	--color-vista-blue-800: #21d071;
+	--color-vista-blue-900: #1db663;
+	--color-orchid: #cf66e7;
+	--color-orchid-50: #f8eafc;
+	--color-orchid-100: #f0d0f8;
+	--color-orchid-200: #e8b5f3;
+	--color-orchid-300: #e09bef;
+	--color-orchid-400: #d780eb;
+	--color-orchid-500: #cf66e7;
+	--color-orchid-600: #c74ce3;
+	--color-orchid-700: #be31df;
+	--color-orchid-800: #b021d0;
+	--color-orchid-900: #991db6;
+	--font-size-sm: 1rem;
+	--font-size-md: 1.2rem;
+	--font-size-lg: 1.4rem;
+	--box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--box-shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--box-shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--box-shadow-dark-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
 .App {
   height: 100%;
   width: 100%;
@@ -102,3 +158,11 @@
 .fieldname-shadow-reversed{
 	box-shadow:  black -6px 0 18px -9px;
 }
+
+.center-placeholder::-webkit-input-placeholder {
+	text-align: center;
+  }
+  
+  .center-placeholder:-moz-placeholder {
+	text-align: center;
+  }

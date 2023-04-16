@@ -8,6 +8,7 @@ import { signOut } from "@firebase/auth";
 import { FRauth } from "../../firebase";
 import { LoadingContext } from "../../contexts/Loading/Loading";
 import Loader from "/loading-animation.svg";
+import { PasserContext } from "contexts/Passer/Passer";
 
 
 interface NavProps {
@@ -19,9 +20,10 @@ const Nav: FC<NavProps> = ({ sticky }) => {
   const location = useLocation();
   const [showGoToPassesLink, setShowGoToPassesLink] = useState(true);
   const loading = useContext(LoadingContext);
+  const passer = useContext(PasserContext);
 
   useEffect(() => {
-    if (location.pathname.startsWith("/passes")) {
+    if (location.pathname.startsWith("/passes") || location.pathname.startsWith("/passer")) {
       setShowGoToPassesLink(false);
     }
   }, [location]);

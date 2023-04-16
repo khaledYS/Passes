@@ -9,8 +9,8 @@ import {
 } from "@firebase/firestore";
 import { FC, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { AuthContext } from "../../../../contexts/Auth/Auth";
-import { db } from "../../../../firebase";
+import { AuthContext } from "contexts/Auth/Auth";
+import { db } from "src/firebase";
 import { passFromDbSnapTypes } from "../ShowPasses/ShowPasses";
 import Loader from "/loading-animation.svg";
 import {IoMdArrowRoundBack} from "react-icons/io"

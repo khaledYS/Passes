@@ -2,7 +2,7 @@ import { Attributes, createElement, FC } from "react";
 import { Timestamp } from "@firebase/firestore"
 import { choosePlatform } from "../../filters-Data";
 import { ReactJSXElementAttributesProperty } from "@emotion/react/types/jsx-namespace";
-import PrintDate from "../../../../../../components/PrintDate/PrintDate";
+import PrintDate from "components/PrintDate/PrintDate";
 import { FaAppStoreIos } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";

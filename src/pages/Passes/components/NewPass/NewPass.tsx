@@ -7,14 +7,16 @@ import {
   userTypes,
 } from "../ShowPasses/filters-Data";
 import { filterByType } from "../ShowPasses/ShowPasses";
-import FormControl from "@mui/material/FormControl";
 import { Stack } from "@mui/system";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Loader from "/loading-animation.svg";
 import {v4 as uuidv4} from "uuid"
-import { AuthContext } from "../../../../contexts/Auth/Auth";
+import { AuthContext } from "contexts/Auth/Auth";
 import { addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, Timestamp, where } from "@firebase/firestore";
-import { db } from "../../../../firebase";
+import { db } from "src/firebase";
+import EncryptionKey from "./components/EnryptionKey/EncryptionKey";
+import {AES} from "crypto-js";
+
 interface NewPassProps {}
 
 const NewPass: FC<NewPassProps> = () => {
@@ -36,6 +38,8 @@ const NewPass: FC<NewPassProps> = () => {
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
   const [submitBtnIsLoading, setSubmitBtnIsLoading] = useState<boolean>(false);
   const [disableCustomField, setDisableCustomField] = useState<boolean>(true);
+  const [encryptionKeyIsOpen, setEncryptionKeyIsOpen] = useState<boolean>(false);
+  const [encryptionKey, setEncryptionKey] = useState<string | null>(null)
   const auth = useContext(AuthContext)
   const navigate = useNavigate();
 
@@ -64,9 +68,16 @@ const NewPass: FC<NewPassProps> = () => {
         return ;
       }
 
+      if(!encryptionKey) {
+        console.log("stopped")
+        setEncryptionKeyIsOpen(true)
+        throw new Error("waiting for the encryption key")
+        return ;
+      }
+
       let addedDoc = await addDoc(docCollRef, {
         createdAt: serverTimestamp(),
-        password: passPassword,
+        password: AES.encrypt(passPassword, encryptionKey!),
         platform: passPlatform,
         type: passType,
         username: passUser,
@@ -121,9 +132,11 @@ const NewPass: FC<NewPassProps> = () => {
       <h1 className="text-3xl ml-2 text-[#f5deb3]">Add new Pass</h1>
 
       <form ref={formRef} onSubmit={e=>e.preventDefault()} className="my-6 pl-5 mx-auto w-fit" autoComplete="off">
+        <div className="relative ">
         <Stack
           width="300px"
           sx={{
+            position:"relative",
             ...styleFilterInput,
           }}
         >
@@ -308,7 +321,11 @@ const NewPass: FC<NewPassProps> = () => {
               required={true}
             />
           </div>
+
         </Stack>
+
+        {encryptionKeyIsOpen && <EncryptionKey setEncryptionKey={setEncryptionKey} />}
+        </div>
 
         <div className="w-full mt-3 flex flex-nowrap h-min">
           <div className=" flex items-center cursor-pointer justify-center w-3/4 bg-green-500 rounded-lg text-center mr-2">

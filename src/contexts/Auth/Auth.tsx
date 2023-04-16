@@ -5,7 +5,7 @@ interface AuthProps {
     
 }
 
-interface AuthContextProps {
+export interface AuthContextProps {
     user : UserInfo | 0 | null,
     setUser: Function
 }
