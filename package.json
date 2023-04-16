@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "start npm run dev:tailwind && npm run dev:vite ",
+    "start": "vite",
+    "dev": "npm run dev:tailwind && npm run dev:vite ",
     "dev:vite": "vite",
     "dev:vite:host": "vite --host",
     "dev:tailwind": "npx tailwindcss -i ./src/style/App.css -o ./src/style/index.css --watch",

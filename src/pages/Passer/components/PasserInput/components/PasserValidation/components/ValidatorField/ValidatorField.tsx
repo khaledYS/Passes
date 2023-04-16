@@ -1,11 +1,5 @@
 import { FunctionComponent } from "react";
-import {
-  BsCheck,
-  BsCheckCircle,
-  BsCheckCircleFill,
-  BsXCircle,
-  BsXCircleFill,
-} from "react-icons/bs";
+import { BsCheckCircleFill, BsXCircle } from "react-icons/bs";
 import { FaMehBlank, FaRegMehBlank } from "react-icons/fa";
 
 interface ValidatorFieldProps {
