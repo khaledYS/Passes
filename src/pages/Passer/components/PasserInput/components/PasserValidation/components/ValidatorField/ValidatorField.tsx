@@ -11,7 +11,7 @@ import { FaMehBlank, FaRegMehBlank } from "react-icons/fa";
 interface ValidatorFieldProps {
   name: string;
   value: string;
-  check: boolean;
+  check: boolean | null;
 }
 
 const ValidatorField: FunctionComponent<ValidatorFieldProps> = ({
@@ -20,7 +20,7 @@ const ValidatorField: FunctionComponent<ValidatorFieldProps> = ({
   check,
 }) => {
   return (
-    <div className="flex flex-row text-xl items-center text-white my-4 transition-all">
+    <div className="flex select-none flex-row text-xl items-center text-white my-4 transition-all">
       {check === null ? (
         <FaRegMehBlank className="text-white text-2xl" />
       ) : check ? (

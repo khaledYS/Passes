@@ -32,7 +32,7 @@ const Nav: FC<NavProps> = ({ sticky }) => {
     <nav
       className={`nav w-full bg-[#36454F] px-2 py-2 text-lg ${
         sticky ? "sticky top-0 " : ""
-      } flex justify-between items-center overflow-hidden`}
+      } flex justify-between items-center`}
     >
       <div className="links gap- flex">
         <Link className="" to="/">

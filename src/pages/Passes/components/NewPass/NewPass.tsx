@@ -53,7 +53,7 @@ const NewPass: FC<NewPassProps> = () => {
     }
     setSubmitBtnIsLoading(true)
     // @ts-ignore
-    const userEmail = auth?.user?.email;
+    const userEmail = auth?.user?.uid;
     const passesRef = collection(db, "users", `${userEmail}`, "passes")
     const docCollRef = collection(db, "users", `${userEmail}`, "passes")
     try {

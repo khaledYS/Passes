@@ -1,6 +1,6 @@
 import React, { FC, ReactChild, ReactChildren, useContext, useEffect, useState } from 'react';
 import './style/index.css';
-import {onAuthStateChanged} from "firebase/auth"
+import {onAuthStateChanged, User} from "firebase/auth"
 import { db, FRauth } from './firebase';
 import { AuthContext } from './contexts/Auth/Auth';
 import { doc, getDocFromServer, serverTimestamp, setDoc } from '@firebase/firestore';
@@ -39,7 +39,7 @@ const App:FC<AppProps> = ({children}) => {
     onAuthStateChanged(FRauth, async (user)=>{
       loading?.setIsLoading(true);
       if(user){
-        auth?.setUser(user);
+        auth?.setUser(user as User);
         // console.log(user)
       }else {
         auth?.setUser(0);
@@ -50,7 +50,7 @@ const App:FC<AppProps> = ({children}) => {
       await loading?.setIsLoading(true);
       try{
         loading?.setIsLoading(true);
-        const docRef = doc(db, "users", `${user?.email}`);
+        const docRef = doc(db, "users", `${user?.uid}`);
         const docSnap = await getDocFromServer(docRef);
         if(!docSnap.exists()){
             await setDoc(docRef, {

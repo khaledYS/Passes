@@ -55,17 +55,18 @@ const ShowPasses: FC<ShowPassesProps> = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
+    let mounted = true;
     (async () => {
       const passesRef = query(collection(
         db,
         "users",
         // @ts-ignore
-        `${auth?.user?.email}`,
+        `${auth?.user?.uid}`,
         "passes"
       ), orderBy("createdAt", "desc"), limit(20));
       try {
         const passesSnaps = await getDocsFromServer(passesRef);
-        setPassesFromDb(
+        mounted && setPassesFromDb(
           passesSnaps.docs.map((e) => {
             return {
               id: e.id,
@@ -79,13 +80,15 @@ const ShowPasses: FC<ShowPassesProps> = () => {
           })
         );
       } catch (error) {
-        setLoading(false)
+        mounted && setLoading(false)
       } finally {
-        setLoading(false)
+        mounted && setLoading(false)
       }
     })();
+    return ()=>{
+      mounted = false
+    }
   }, []);
-
 
   return (
     <div className="showpasses w-full h-full flex flex-col overflow-hidden ">

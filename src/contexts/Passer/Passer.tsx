@@ -12,6 +12,11 @@ export const PasserContext = createContext<PasserContextProps | null | undefined
 
 const Passer:FC<PasserProps> = ({children}) => {
 
+    /**
+     * undefined means is hasn't been declared
+     * null means the user doesn't have a passer
+     * string:value means the user has a passer
+     */
     const [passer, setPasser] = useState<undefined | null | string>(undefined);
 
     return (
