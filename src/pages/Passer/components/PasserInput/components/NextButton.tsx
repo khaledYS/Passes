@@ -2,6 +2,7 @@ import { Tooltip } from "@mui/material";
 import bcrypt from "bcryptjs";
 import { saltRounds } from "config/generalAttributes";
 import { AuthContext } from "contexts/Auth/Auth";
+import { PasserContext } from "contexts/Passer/Passer";
 import {
   doc,
   getDocFromServer,
@@ -35,9 +36,12 @@ const NextButton: FunctionComponent<NextButtonProps> = ({
   isLoading,
   setIsLoading,
 }) => {
+
   let mounted = true;
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const passer = useContext(PasserContext)
+
   const sendPasserToDB = async (val: string) => {
     if (!auth) return 409;
     try {
@@ -51,9 +55,9 @@ const NextButton: FunctionComponent<NextButtonProps> = ({
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedText = await bcrypt.hash(val, salt);
         const res = await setDoc(docRef, {passer: hashedText});
-        console.log(res, "res")
+        passer?.setPasser(hashedText);
         mounted && setIsLoading(false);
-        navigate("/")
+        navigate("/passes")
       }else {
         navigate("/passes")
       }

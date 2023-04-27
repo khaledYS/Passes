@@ -26,7 +26,8 @@
       "fonts/*" : ["src/fonts/*"],
       "pages/*" : ["src/pages/*"],
       "style/*" : ["src/style/*"],
-      "src/*" : ["src/*"]
+      "src/*" : ["src/*"],
+      "public/*" : ["public/*"]
     }
   },
   "include": ["src"],

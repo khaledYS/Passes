@@ -21,7 +21,7 @@ const Passer: FunctionComponent<PasserProps> = () => {
     }
   }, [passer?.passer]);
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col overflow-auto">
       <Nav />
       <div className="bg-fifthdary-500 grow w-full flex justify-start flex-col ">
         <Intro />

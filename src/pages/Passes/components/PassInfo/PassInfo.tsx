@@ -34,7 +34,7 @@ const PassInfo: FC<PassInfoProps> = () => {
         db,
         "users",
         // @ts-ignore
-        auth?.user.email,
+        auth?.user.uid,
         "passes",
         params.passId
       );

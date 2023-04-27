@@ -31,7 +31,7 @@ const Loader: FunctionComponent<LoaderProps> = ({
             }
             >
             <object
-                className={"w-16" + loaderClassName}
+                className={"w-16 " + loaderClassName}
                 type="image/svg+xml"
                 data={LoadingImg}
             ></object>

@@ -13,7 +13,8 @@ export default defineConfig({
       fonts: resolve(__dirname, "./src/fonts/"),
       pages: resolve(__dirname, "./src/pages/"),
       style: resolve(__dirname, "./src/style/"),
-      src: resolve(__dirname, "./src/")
+      src: resolve(__dirname, "./src/"),
+      public: resolve(__dirname, "./public/")
     }
   }
 })
