@@ -52,7 +52,6 @@ const NewPassForm: FunctionComponent<NewPassFormProps> = ({
   const [ComparePasserComp, [showComp, setShowComp], [passerFromUser]] =
     ComparePasser(
       (passerFromUserParam:string) => {
-        console.log("true and ", passerFromUserParam)
         clearErrors();
         submitPass({
           passUser,
@@ -65,16 +64,12 @@ const NewPassForm: FunctionComponent<NewPassFormProps> = ({
         });
       },
       () => {
-        console.log("false and ", passerFromUser)
         setError("Wrong passer")
       },
       false
     );
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(passerFromUser);
-  }, [passerFromUser]);
 
   // check if the type of the platform is url or others so it enables the custom field
   useEffect(() => {
@@ -101,10 +96,6 @@ const NewPassForm: FunctionComponent<NewPassFormProps> = ({
       setPasswordIsValid(true);
     }
   }, [passPassword, passPassword_]);
-
-  useEffect(() => {
-    console.log(passPlatform == "URL" && false);
-  }, [showPassword]);
 
   // if the custom platform is disabled and has old data stored, the setCustomePassField state must be null.
   useEffect(() => {
