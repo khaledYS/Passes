@@ -69,7 +69,7 @@ const PassInfo: FC<PassInfoProps> = () => {
         <div className="text-white w-full h-full grid place-items-center ">
             <div className=" px-1 py-8 rounded-xl ">
                 <Field fieldName={passFromDb?.type} fieldValue={passFromDb?.username} />
-                <PassField fieldName="Pass" fieldValue={passFromDb?.password} />
+                <PassField fieldName="Pass" fieldValue={passFromDb?.password!} />
                 <Field disableCopy={true} fieldName="Platform" fieldValue={passFromDb?.platform} />
                 {passFromDb?.customField && 
                   <Field fieldName={passFromDb.platform} fieldValue={passFromDb?.customField} />
