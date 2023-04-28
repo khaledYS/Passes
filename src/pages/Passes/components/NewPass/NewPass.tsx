@@ -30,8 +30,6 @@ const NewPass: FC<NewPassProps> = () => {
 
   async function submitPass({passUser, passPlatform, customPassField, passwordIsValid, passType, passPassword, passerKey}:submitPassProps) {
     if (!passUser || !passPlatform || (passPlatform.toLowerCase() == "others" && !customPassField) || !passwordIsValid || submitBtnIsLoading) {
-      console.log("false")
-      // note: must add code to show the user that he must fill all the fields 
       return;
     }
     setSubmitBtnIsLoading(true)
@@ -64,7 +62,6 @@ const NewPass: FC<NewPassProps> = () => {
         customField: customPassField
       })
 
-      console.log(addedDoc, "finshed")
       setSubmitBtnIsLoading(false)
       navigate("/passes")
     } catch (error) {

@@ -14,7 +14,6 @@ const Login: FC<LoginProps> = () => {
   const auth = useContext(AuthContext);
   const loading = useContext(LoadingContext);
 
-  console.log(auth);
   async function loginWithGoogle() {
     try {
         await loading?.setIsLoading(true);
@@ -25,13 +24,12 @@ const Login: FC<LoginProps> = () => {
       console.log(err.code);
       await loading?.setIsLoading(false);
     }finally{
-      console.log("must never fall the loading")
     }
   }
 
   useEffect(() => {
     if (auth?.user) {
-      console.log(
+      console.warn(
         "User already signed in, to sign in with another account please logout from the current account. redircting...."
       );
       navigate("/");

@@ -40,7 +40,6 @@ const App:FC<AppProps> = ({children}) => {
       loading?.setIsLoading(true);
       if(user){
         auth?.setUser(user as User);
-        // console.log(user)
       }else {
         auth?.setUser(0);
         await loading?.setIsLoading(false);
@@ -66,11 +65,9 @@ const App:FC<AppProps> = ({children}) => {
           if(_passer) passer?.setPasser(_passer)
           else passer?.setPasser(null)
         }
-        // console.log("hahha")
 
     } catch (err){
         // @ts-ignore
-        console.log(err.code)
         loading?.setIsLoading(false)
         alert(err)
     }

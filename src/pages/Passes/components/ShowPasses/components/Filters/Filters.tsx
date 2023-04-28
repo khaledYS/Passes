@@ -54,9 +54,6 @@ const Filters: FC<FiltersProps> = ({
   byCustomPlatform,
   setByCustomPlatform
 }) => {
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(false);
   const animationControls = useAnimationControls();
@@ -74,10 +71,6 @@ const Filters: FC<FiltersProps> = ({
       animationControls.start("closed");
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    console.log(byPlatform, byUserType, byCustomPlatform);
-  }, [byUserType, byPlatform, byCustomPlatform]);
 
   return (
     <motion.div
@@ -145,7 +138,6 @@ const Filters: FC<FiltersProps> = ({
                 );
               }}
               renderOption={(props, option: any, state) => {
-                console.log(option)
                 return (
                   <li {...props}>
                     <option.Icon className="text-2xl" /> &nbsp;&nbsp;{option.label}

@@ -31,56 +31,61 @@ const ComparePasser = (
       setPasserFUser(null);
       await onError();
     } else if (res === true) {
+      console.log("hi", strPasser, res)
       setPasserFUser(strPasser);
-      console.log(strPasser, " hi mother fucker")
+      console.log("failed maybe on here")
       await onTrue(strPasser);
     }
   }
 
-  const Compo: ElementType = () => {
-    return (
-      <>
-        <input
-          type="text"
-          className="min-w-[200px] w-full center-placeholder transition-all border-b-0 duration-300 px-2 py-3 rounded-md rounded-b-none border-[.4rem] text outline-none text-lg font-extrabold border-thirdary-800 text-[#1F1F1F]"
-          onInput={(event) => {
-            if (isLoading) return;
-
-            const target = event.target as HTMLInputElement;
-            const value = target.value;
-
-            passerInputFieldValue.current = value;
-          }}
-        />
-        <Loader {...{ isLoading, setIsLoading, loaderClassName: "w-10" }}>
-          <button
-            onClick={() => {
-              const passerIFV = passerInputFieldValue.current;
-              const passerFS = passerFServer?.passer || "";
-
-              // skip in case of no input or it is loading
-              console.log(passerIFV.length)
-              if (isLoading || passerIFV.length <= 0 ) return;
-              
-
-              (async () => {
-                try {
-                  setIsLoading(true);
-                  await checkPasser(passerIFV, passerFS);
-                } catch (error) {
-                  setPasserFUser(null)
-                  console.error(error);
-                } finally {
-                  setIsLoading(false);
-                }
-              })();
+  const Compo:ElementType = () => {
+    if(show){
+      return (
+        <div>
+          <input
+            type="text"
+            className="min-w-[200px] w-full center-placeholder transition-all border-b-0 duration-300 px-2 py-3 rounded-md rounded-b-none border-[.4rem] text outline-none text-lg font-extrabold border-thirdary-800 text-[#1F1F1F]"
+            onInput={(event) => {
+              if (isLoading) return;
+  
+              const target = event.target as HTMLInputElement;
+              const value = target.value;
+  
+              passerInputFieldValue.current = value;
             }}
-            className="w-full text-center pb-3 bg-thirdary-800 rounded-md font-bold pt-2 text-lg rounded-t-none border-red-500">
-            check passer
-          </button>
-        </Loader>
-      </>
-    );
+          />
+          <Loader {...{ isLoading, setIsLoading, loaderClassName: "w-10" }}>
+            <button
+              onClick={() => {
+                const passerIFV = passerInputFieldValue.current;
+                const passerFS = passerFServer?.passer || "";
+  
+                // skip in case of no input or it is loading
+                if (isLoading || passerIFV.length <= 0 ) return;
+                
+  
+                (async () => {
+                  try {
+                    setIsLoading(true);
+                    await checkPasser(passerIFV, passerFS);
+                  } catch (error) {
+                    setPasserFUser(null)
+                    console.error(error);
+                  } finally {
+                    setIsLoading(false);
+                  }
+                })();
+              }}
+              className="w-full text-center pb-3 bg-thirdary-800 rounded-md font-bold pt-2 text-lg rounded-t-none border-red-500">
+              check passer
+            </button>
+          </Loader>
+        </div>
+      );
+    }else{
+      return <></>;
+    }
+    
   };
   return [Compo, [show, setShow], [passerFUser, setPasserFUser]] as [
     ElementType,

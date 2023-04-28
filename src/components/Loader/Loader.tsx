@@ -17,9 +17,7 @@ const Loader: FunctionComponent<LoaderProps> = ({
   wrapperClassName = " ",
   children
 }) => {
-    useEffect(() => {
-        console.log(isLoading)
-    }, [isLoading]);
+    
   return (
     <div className={"relative " + wrapperClassName }>
         {children}

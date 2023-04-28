@@ -12,11 +12,12 @@ import { useParams } from "react-router";
 import { AuthContext } from "contexts/Auth/Auth";
 import { db } from "src/firebase";
 import { passFromDbSnapTypes } from "../ShowPasses/ShowPasses";
-import Loader from "/loading-animation.svg";
 import {IoMdArrowRoundBack} from "react-icons/io"
 import { Link } from "react-router-dom";
 import { Icon, IconButton, listItemSecondaryActionClasses } from "@mui/material";
 import Field from "./components/Field";
+import Loader from "components/Loader/Loader";
+import PassField from "./components/PassField";
 
 
 interface PassInfoProps {}
@@ -57,9 +58,6 @@ const PassInfo: FC<PassInfoProps> = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(passFromDb)
-  }, [passFromDb]);
   return (
     <div className="w-full h-full bg-[#36454f]">
         <Link to="/passes" className="ml-4">
@@ -67,25 +65,18 @@ const PassInfo: FC<PassInfoProps> = () => {
                 <IoMdArrowRoundBack className="text-white text-4xl " />
             </IconButton>
         </Link>
-      {loading && (
-        <div
-          className="w-full h-full flex justify-center items-center backdrop-filter backdrop-opacity-10"
-          style={{ backgroundColor: "rgb(255 255 255 / .3)" }}
-        >
-          <object className="w-1/6" type="image/svg+xml" data={Loader}></object>
-        </div>
-      )}
-
+        <Loader {...{isLoading:loading, setIsLoading: setLoading}}>
         <div className="text-white w-full h-full grid place-items-center ">
             <div className=" px-1 py-8 rounded-xl ">
                 <Field fieldName={passFromDb?.type} fieldValue={passFromDb?.username} />
-                <Field fieldName="Pass" fieldValue={passFromDb?.password} />
+                <PassField fieldName="Pass" fieldValue={passFromDb?.password} />
                 <Field disableCopy={true} fieldName="Platform" fieldValue={passFromDb?.platform} />
                 {passFromDb?.customField && 
                   <Field fieldName={passFromDb.platform} fieldValue={passFromDb?.customField} />
                 }
             </div>
         </div>
+        </Loader>
     </div>
   );
 };
