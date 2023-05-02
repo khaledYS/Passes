@@ -50,6 +50,7 @@ const PassField: FunctionComponent<PassFieldProps> = ({
       }, 800);
     }
   }, [tooltipIsClicked]);
+  
   return (
     <div className="bg-white border-pink-700 border-4 my-3 flex rounded-xl select-none text-2xl max-sm:text-xl">
       <div className="whitespace-nowrap px-2 flex items-center text-black rounded-lg w-full">
