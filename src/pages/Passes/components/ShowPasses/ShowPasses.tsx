@@ -125,7 +125,7 @@ const ShowPasses: FC<ShowPassesProps> = () => {
               <object className="w-1/6" type="image/svg+xml" data={Loader} ></object>
             </div>
           )}
-          <div className="flex-1 flex flex-col w-full max-w-[500px] px-2 mx-auto min-h-0 overflow-auto py-3">
+          <div className="flex-1 flex flex-col w-full max-w-[700px] px-2 mx-auto min-h-0 overflow-auto py-3">
             {passesFromDb &&
               passesFromDb.map((e) => {
                 return (

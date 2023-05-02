@@ -31,6 +31,18 @@ const Pass:FC<PassProps> = ({passData}) => {
         username = username.slice(0, 10) + "...";
     }
 
+
+    // if the url is long then crop it 
+    let customField: string | null = passData.customField;
+    // crop the url from the beggining
+    if(passData.customField && customField?.length! > 20  && passData.platform === "URL"){
+        customField = customField?.slice(8)!;
+        // if even with cropping the start of the url and its long, try cropping it from the end;
+        if(customField.length > 33){
+            customField = customField.slice(0, 30) + "..."
+        }
+    }
+
     let timestampFromServer = passData.createdAt;
     let timestamp_ = Number(`${timestampFromServer.seconds}`+`${(timestampFromServer.nanoseconds / 1000000)}`);
     let timestamp = new Date(timestamp_);
@@ -47,7 +59,7 @@ const Pass:FC<PassProps> = ({passData}) => {
                 <div><Icon className="text-[#FCFCFC] text-5xl" /></div>
             </div>
             <div className="flex flex-col justify-start w-full">
-                <span className="text-2xl">{passData.platform == "URL" || passData.platform == "Others" ? passData.customField : passData.platform}</span>
+                <span className="text-2xl">{passData.platform == "URL" || passData.platform == "Others" ? customField : passData.platform}</span>
                 <span className="text-gray-300 ml-2">{username} - {passData.type} </span>
             </div>
             <div className="flex flex-col items-center justify-center ml-4">
